@@ -1,6 +1,6 @@
 sources:
   - service
-  - ingress
+  - ingressasdf
   - gateway-httproute
 interval: '${sync_interval}'
 triggerLoopOnEvent: true
