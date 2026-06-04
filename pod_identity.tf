@@ -1,6 +1,6 @@
 module "aws_external_dns_pod_identity" {
   source  = "terraform-aws-modules/eks-pod-identity/aws"
-  version = "2.8.0"
+  version = "2.8.1"
 
   name = "aws-external-dns"
 
