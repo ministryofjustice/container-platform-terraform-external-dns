@@ -35,3 +35,5 @@ global:
 
 extraArgs:
   exclude-record-types: AAAA
+
+enableGatewayListenerSets: true  
