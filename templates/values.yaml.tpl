@@ -1,3 +1,4 @@
+enableGatewayListenerSets: true
 sources:
   - service
   - ingress
