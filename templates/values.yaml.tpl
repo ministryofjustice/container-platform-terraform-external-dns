@@ -1,6 +1,8 @@
+enableGatewayListenerSets: true
 sources:
   - service
   - ingress
+  - gateway-httproute
 interval: '${sync_interval}'
 triggerLoopOnEvent: true
 provider: aws
