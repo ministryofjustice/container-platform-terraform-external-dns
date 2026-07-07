@@ -31,7 +31,7 @@ resource "helm_release" "external_dns" {
   name       = local.namespace
   chart      = local.namespace
   repository = "https://kubernetes-sigs.github.io/external-dns/"
-  version    = local.workspace_config.version
+  version    = "1.21.1"
   namespace  = local.namespace
 
   values = [templatefile("${path.module}/templates/values.yaml.tpl", {
