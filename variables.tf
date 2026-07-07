@@ -13,7 +13,6 @@ variable "required_inputs" {
   description = "The inputs for the external DNS module for each workspace. If terraform.workspace starts with 'cp-' the config for that workspace will be used, otherwise the config for 'cloud-platform-development' will be used."
   type = map(
     object({
-      version                 = string
       domain_name_prefix      = string
       sync_interval           = string
       aws_zone_cache_duration = string
@@ -25,7 +24,6 @@ variable "required_inputs" {
       for config in values(var.required_inputs) :
       alltrue([
         for value in [
-          config.version,
           config.domain_name_prefix,
           config.sync_interval,
           config.aws_zone_cache_duration,
@@ -33,7 +31,7 @@ variable "required_inputs" {
         ] : trimspace(value) != ""
       ])
     ])
-    error_message = "Each required_inputs entry must include non-empty values for version, domain_name_prefix, sync_interval, aws_zone_cache_duration, and log_level."
+    error_message = "Each required_inputs entry must include non-empty values for domain_name_prefix, sync_interval, aws_zone_cache_duration, and log_level."
   }
 }
 
