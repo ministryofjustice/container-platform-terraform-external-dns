@@ -9,7 +9,6 @@ The variables in this module are validated to ensure that all requirements are m
 ### required_inputs
 
 The `required_inputs` variable is a map of maps, where the key is the Terraform workspace and the value is a map of the required input variables for that workspace. Each required input variable is validated to ensure that it is not empty, and that all required fields are provided for each workspace configuration. The required input variables for each workspace include:
-- `version`: The version of the External DNS Helm chart to deploy.
 - `domain_name_prefix`: The prefix for the domain name to be used by External DNS.
 - `sync_interval`: The interval at which External DNS will sync with the DNS provider.
 - `aws_zone_cache_duration`: The duration for which AWS zone information will be cached by External DNS.
@@ -22,7 +21,6 @@ variable "required_inputs" {
   description = "The inputs for the external DNS module for each workspace. If terraform.workspace starts with 'cp-' the config for that workspace will be used, otherwise the config for 'cloud-platform-development' will be used."
   type = map(
     object({
-      version                 = string
       domain_name_prefix      = string
       sync_interval           = string
       aws_zone_cache_duration = string
@@ -34,7 +32,6 @@ variable "required_inputs" {
       for config in values(var.required_inputs) :
       alltrue([
         for value in [
-          config.version,
           config.domain_name_prefix,
           config.sync_interval,
           config.aws_zone_cache_duration,
@@ -42,7 +39,7 @@ variable "required_inputs" {
         ] : trimspace(value) != ""
       ])
     ])
-    error_message = "Each required_inputs entry must include non-empty values for version, domain_name_prefix, sync_interval, aws_zone_cache_duration, and log_level."
+    error_message = "Each required_inputs entry must include non-empty values for domain_name_prefix, sync_interval, aws_zone_cache_duration, and log_level."
   }
 }
 ```
