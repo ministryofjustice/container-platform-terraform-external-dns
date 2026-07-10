@@ -10,7 +10,6 @@ module "external_dns" {
 
   required_inputs = {
     <terraform workspace> = {
-      version                 = <chart version>
       domain_name_prefix      = <environment name>
       sync_interval           = <sync interval>
       aws_zone_cache_duration = <aws zone cache duration>
@@ -31,28 +30,24 @@ module "external_dns" {
 
   required_inputs = {
     cloud-platform-development = {
-      version                 = "1.21.1"
       domain_name_prefix      = "development"
       sync_interval           = "10m"
       aws_zone_cache_duration = "2h"
       log_level               = "debug"
     }
     cloud-platform-preproduction = {
-      version                 = "1.21.1"
       domain_name_prefix      = "preproduction"
       sync_interval           = "10m"
       aws_zone_cache_duration = "2h"
       log_level               = "info"
     }
     cloud-platform-nonlive = {
-      version                 = "1.21.1"
       domain_name_prefix      = "nonlive"
       sync_interval           = "60m"
       aws_zone_cache_duration = "2h"
       log_level               = "info"
     }
     cloud-platform-live = {
-      version                 = "1.21.1"
       domain_name_prefix      = "live"
       sync_interval           = "60m"
       aws_zone_cache_duration = "2h"
