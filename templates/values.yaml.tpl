@@ -24,7 +24,7 @@ serviceAccount:
 txtPrefix: "${txtPrefix}"
 txtOwnerId: ${cluster}
 logLevel: "${loglevel}"
-policy: sync
+policy: ${policy}
 metrics:
   enabled: true
   serviceMonitor:

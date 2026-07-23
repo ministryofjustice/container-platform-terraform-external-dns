@@ -35,6 +35,17 @@ variable "required_inputs" {
   }
 }
 
+variable "policy" {
+  description = "ExternalDNS synchronisation policy. 'upsert-only' creates/updates records but NEVER deletes them (records are retained when the source HTTPRoute/Service is removed); 'sync' keeps DNS fully in step with sources (deletes records when the source is removed); 'create-only' only ever creates records."
+  type        = string
+  default     = "upsert-only"
+
+  validation {
+    condition     = contains(["sync", "upsert-only", "create-only"], var.policy)
+    error_message = "policy must be one of: sync, upsert-only, create-only."
+  }
+}
+
 variable "tags" {
   description = "A map of tags to apply to resources created by this module. Allowed keys are: application, business-unit, owner, service-area, source-code, slack-channel, is-production."
   type        = map(string)
@@ -64,7 +75,7 @@ variable "tags" {
   }
 
   validation {
-    condition = contains(["HMPPS", "OPG", "LAA", "Central Digital", "Technology Services", "HMCTS", "CICA", "OCTO", "YJB"], lookup(var.tags, "business-unit", ""))
+    condition     = contains(["HMPPS", "OPG", "LAA", "Central Digital", "Technology Services", "HMCTS", "CICA", "OCTO", "YJB"], lookup(var.tags, "business-unit", ""))
     error_message = "Allowed values for business-unit are: HMPPS, OPG, LAA, Central Digital, Technology Services, HMCTS, CICA, OCTO, YJB."
   }
 }
