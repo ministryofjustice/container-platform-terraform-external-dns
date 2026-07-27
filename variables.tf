@@ -36,9 +36,9 @@ variable "required_inputs" {
 }
 
 variable "policy" {
-  description = "ExternalDNS synchronisation policy. 'upsert-only' creates/updates records but NEVER deletes them (records are retained when the source HTTPRoute/Service is removed); 'sync' keeps DNS fully in step with sources (deletes records when the source is removed); 'create-only' only ever creates records."
+  description = "ExternalDNS synchronisation policy. 'sync' (default) keeps DNS fully in step with sources, deleting records when the source HTTPRoute/Service is removed; 'upsert-only' creates and updates records but NEVER deletes them, so records are retained when the source is removed; 'create-only' only ever creates records."
   type        = string
-  default     = "upsert-only"
+  default     = "sync"
 
   validation {
     condition     = contains(["sync", "upsert-only", "create-only"], var.policy)
