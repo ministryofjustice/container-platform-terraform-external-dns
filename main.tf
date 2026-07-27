@@ -41,6 +41,7 @@ resource "helm_release" "external_dns" {
     cluster                 = var.eks_cluster_name
     txtPrefix               = "_external_dns.%%{record_type}."
     loglevel                = local.workspace_config.log_level == "" ? "info" : local.workspace_config.log_level
+    policy                  = var.policy
   })]
 
   set = [

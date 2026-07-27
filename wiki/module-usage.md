@@ -65,3 +65,23 @@ module "external_dns" {
   }
 }
 ```
+
+## Optional: `policy`
+
+The optional `policy` variable controls how ExternalDNS reconciles Route 53 records. It defaults to `sync`, which keeps DNS fully in step with sources, deleting a record when its source `HTTPRoute`/`Service` is removed. Set it to `upsert-only` to create and update records but **never delete** them, so a record is retained when its source is removed.
+
+```hcl
+module "external_dns" {
+  source = "github.com/ministryofjustice/container-platform-terraform-external-dns?ref=<latest release version>"
+
+  eks_cluster_name = local.environment_name
+  policy           = "upsert-only" # one of: sync (default), upsert-only
+
+  required_inputs = {
+    # ...
+  }
+  tags = <tags>
+}
+```
+
+> Note: the default remains `sync`, matching the previous behaviour, so this variable is additive. Set `policy = "upsert-only"` only if you want records to be retained when their source is removed.
