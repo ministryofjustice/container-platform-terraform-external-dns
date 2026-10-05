@@ -27,8 +27,14 @@ logLevel: "${loglevel}"
 policy: ${policy}
 metrics:
   enabled: true
-  serviceMonitor:
-    enabled: true  
+service:
+  # Annotate the metrics Service so the CP3 ADOT collector's annotation-driven
+  # kubernetes-service-endpoints scrape job discovers it (port 7979). CP3 has no
+  # Prometheus Operator, so a ServiceMonitor would be inert — annotation-based
+  # discovery is the mechanism in use.
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "7979"
 priorityClassName: system-cluster-critical
 global:
   security:
